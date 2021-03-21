@@ -21,7 +21,8 @@ var mariocollid;
 var bg;
 var restartimg;
 var gameover,gameoverimg;
-
+var marioJump;
+var mariodie;
 function preload()
 {
 	mariom1=loadAnimation("images/mario00.png","images/mario01.png","images/mario00.png","images/mario03.png","images/mario00.png");
@@ -30,6 +31,8 @@ function preload()
 	bgimg=loadImage("images/bg.png");
     restartimg=loadImage("images/restart.png");
 	gameoverimg=loadImage("images/gameOver.png");
+	marioJump=loadSound("sounds/jump.mp3");
+	mariodie=loadSound("sounds/die.mp3")
 }
 
 
@@ -88,8 +91,10 @@ function draw() {
   
 	if (keyDown ("W") && mario.y>=500){
   
+		
 		console.log(mario.y)
 		mario.velocityY=-10 ;
+		mariojump.play();
 	}
 	
 	mario.velocityY=mario.velocityY+0.5;
@@ -98,6 +103,7 @@ function draw() {
 	 gameover.visible=false;
 	if(obsGroup.isTouching(mario)){
 		gamestate="end";
+		mariodie.play();
         mario.changeAnimation("mario_collided",mariom2);
 	}
 
